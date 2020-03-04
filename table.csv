@@ -1,0 +1,61 @@
+id,models,year,price,ext_color,int_color,transmission,drivetrain,phone_num
+1,BMW ,2020,"$93,945 ",Gray,Black,Automatic,RWD,(714) 676-5156
+2,BMW ,2019,"$46,545 ",Blue,Black,Automatic,RWD,(888) 447-0921
+3,BMW ,2017,"$25,279 ",Blue,Black,Manual,RWD,(888) 406-4246
+4,BMW ,2017,"$25,495 ",White,Red,Automatic,AWD,(385) 448-4404
+5,BMW ,2019,"$45,992 ",White,Black,Automatic,RWD,(801) 871-3485
+6,BMW ,2018,"$27,991 ",Black,Black,Automatic,RWD,(971) 412-4624
+7,BMW ,2019,"$74,995 ",Black,Beige,Automatic,AWD,(888) 764-2304
+8,BMW ,2020,"$77,094 ",White,Black,Automatic,AWD,(888) 271-4560
+9,BMW ,2011,"$11,900 ",White,Black,Automatic,RWD,(512) 402-5013
+10,BMW ,2019,"$83,495 ",Gray,Black,Automatic,AWD,(866) 413-3488
+11,BMW ,1997,"$8,900 ",Black,Beige,Manual,RWD,Private Seller)
+12,BMW ,2019,"$93,000 ",Blue,White,Automatic,AWD,(630) 984-5007
+13,BMW ,2012,"$28,900 ",White,Red,Automatic,RWD,(812) 777-4113
+14,BMW ,2018,"$22,999 ",Gray,Black,Automatic,FWD,(770) 954-7422
+15,BMW ,2017,"$85,941 ",White,Black,Automatic,AWD,(866) 984-0846
+16,BMW ,2016,"$66,950 ",Gray,White,Automatic,AWD,(571) 399-3434
+17,BMW ,2019,"$45,385 ",Gray,Beige,Automatic,RWD,(888) 473-7982
+18,BMW ,2019,"$47,125 ",Black,Black,Automatic,RWD,(252) 624-0996
+19,BMW ,2002,"$3,995 ",Silver,Other,Automatic,AWD,(757) 349-7384
+20,BMW ,1996,"$3,895 ",Black,Brown,Manual,RWD,(802) 391-3729
+21,Ford,2016,"$13,950 ",Silver,Beige,Automatic,FWD,(888) 451-2497
+22,Ford,2018,"$16,999 ",Black,Black,Manual,FWD,(619) 493-4972
+23,Ford,2012,"$9,488 ",White,Gray,Automatic,FWD,(916) 273-3886
+24,Ford,2013,"$9,977 ",Blue,Black,Automatic,4x4/4-wheel,(406) 318-8974
+25,Ford,2014,"$8,995 ",Gray,Black,Other,/,(888) 897-9257
+26,Ford,2006,"$339,888 ",White,Black,Manual,RWD,(830) 443-4940
+27,Ford,2018,"$18,899 ",White,Other,Automatic,RWD,(469) 277-6474
+28,Ford,2016,"$13,450 ",Blue,Gray,Manual,FWD,(402) 401-7815
+29,Ford,2019,"$18,892 ",Gray,Black,CVT,FWD,(816) 875-5610
+30,Ford,2014,"$9,950 ",Black,Other,Automatic,FWD,(515) 978-0560
+31,Ford,2015,"$11,489 ",Gray,Black,CVT,FWD,(888) 326-1755
+32,Ford,2007,"$10,999 ",Gray,Beige,Automatic,4x4/4-wheel,(630) 478-9068
+33,Ford,2017,"$23,491 ",Gray,Black,Manual,AWD,(330) 331-4065
+34,Ford,2011,"$4,700 ",Black,Black,Automatic,RWD,(407) 347-6487
+35,Ford,2013,"$9,995 ",White,Black,Automatic,AWD,(703) 659-4314
+36,Ford,2008,"$3,995 ",Silver,Beige,Automatic,RWD,(888) 826-9897
+37,Ford,2014,"$5,999 ",White,Black,Automatic,FWD,(757) 512-8861
+38,Ford,2017,"$32,999 ",Gray,Black,Manual,AWD,(908) 986-5440
+39,Ford,2019,"$15,495 ",White,Gray,CVT,FWD,(802) 316-4594
+40,Ford,2013,"$6,995 ",White,Black,Automatic,AWD,(203) 490-4510
+41,Ford,2016,"$13,950 ",Silver,Beige,Automatic,FWD,(888) 451-2497
+42,Ford,2018,"$16,999 ",Black,Black,Manual,FWD,(619) 493-4972
+43,Ford,2012,"$9,488 ",White,Gray,Automatic,FWD,(916) 273-3886
+44,Ford,2013,"$9,977 ",Blue,Black,Automatic,4x4/4-wheel,(406) 318-8974
+45,Ford,2014,"$8,995 ",Gray,Black,Other,/,(888) 897-9257
+46,Ford,2006,"$339,888 ",White,Black,Manual,RWD,(830) 443-4940
+47,Ford,2018,"$18,899 ",White,Other,Automatic,RWD,(469) 277-6474
+48,Ford,2016,"$13,450 ",Blue,Gray,Manual,FWD,(402) 401-7815
+49,Ford,2019,"$18,892 ",Gray,Black,CVT,FWD,(816) 875-5610
+50,Ford,2014,"$9,950 ",Black,Other,Automatic,FWD,(515) 978-0560
+51,Ford,2015,"$11,489 ",Gray,Black,CVT,FWD,(888) 326-1755
+52,Ford,2007,"$10,999 ",Gray,Beige,Automatic,4x4/4-wheel,(630) 478-9068
+53,Ford,2017,"$23,491 ",Gray,Black,Manual,AWD,(330) 331-4065
+54,Ford,2011,"$4,700 ",Black,Black,Automatic,RWD,(407) 347-6487
+55,Ford,2013,"$9,995 ",White,Black,Automatic,AWD,(703) 659-4314
+56,Ford,2008,"$3,995 ",Silver,Beige,Automatic,RWD,(888) 826-9897
+57,Ford,2014,"$5,999 ",White,Black,Automatic,FWD,(757) 512-8861
+58,Ford,2017,"$32,999 ",Gray,Black,Manual,AWD,(908) 986-5440
+59,Ford,2019,"$15,495 ",White,Gray,CVT,FWD,(802) 316-4594
+60,Ford,2013,"$6,995 ",White,Black,Automatic,AWD,(203) 490-4510
