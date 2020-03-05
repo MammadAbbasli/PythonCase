@@ -53,7 +53,7 @@ try:
                obj=str(obj.text)
                Model.append(obj[5:9])
                Year.append(obj[:4])
-               ford=Model.count('BMW ')
+               bmw=Model.count('BMW ')
                  
           for inf in info:
                inf=str(inf.text) 
