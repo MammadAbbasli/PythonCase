@@ -1,3 +1,7 @@
 #####
 table must be imported to mysql
-#####
+###############
+Flash.py :
+
+Connect to mysql data and get all data according request and convert it json file.
+###############
