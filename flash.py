@@ -18,7 +18,7 @@ app.config["MYSQL_DB"] = "case"
 app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
 mysql = MySQL(app)
-@app.route("/list/<extColor>/<model>/<year>",methods=['GET'])
+@app.route("/<extColor>/<model>/<year>",methods=['GET'])
 
 def liste(extColor,model,year):
     print(extColor,model,year)
