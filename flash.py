@@ -6,7 +6,6 @@ Created on Tue Mar  3 12:54:33 2020
 """
 
 from flask import Flask,jsonify
-#import MySQLdb 
 from flask_mysqldb import MySQL
 
 
@@ -19,37 +18,19 @@ app.config["MYSQL_DB"] = "case"
 app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
 mysql = MySQL(app)
-@app.route("/list",methods=['GET'])
-def liste():
+@app.route("/list/extcolor=<extColor>/model=<model>/year=<year>",methods=['GET'])
+
+def liste(extColor,model,year):
+    print(extColor,model,year)
     cursor = mysql.connection.cursor()
-    sorgu = '''Select * From car_info'''
+    sorgu = ("Select * From car_info wehere ext_color='{0}'and models='{1}'and year='{2}'".format(extColor,model,year))
     cursor.execute(sorgu)
     data=cursor.fetchall()
     cursor.close()
     return jsonify(data)
-@app.route("/extcolor=black")
-def liste2():
-    cursor = mysql.connection.cursor()
-    sorgu = "Select * From car_info Where ext_color='Black'"
-    cursor.execute(sorgu)
-    data=cursor.fetchall()
-    cursor.close()
-    return jsonify(data)
-@app.route("/brand=BMW/extcolor=black")
-def liste3():
-    cursor = mysql.connection.cursor()
-    sorgu = "Select * From car_info Where ext_color='Black' and models='BMW'"
-    cursor.execute(sorgu)
-    data=cursor.fetchall()
-    cursor.close()
-    return jsonify(data)
-@app.route("/trans=automatic/brand=Ford/year=2018")
-def liste4():
-    cursor = mysql.connection.cursor()
-    sorgu = "Select * From car_info Where transmisson='Automatic' and models='Ford' and year='2018'"
-    cursor.execute(sorgu)
-    data=cursor.fetchall()
-    cursor.close()
-    return jsonify(data)
+
 if __name__=="__main__":
+#    app.debug = True
+    use_reloader=False
     app.run()
+
