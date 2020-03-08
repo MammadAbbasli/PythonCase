@@ -1,31 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar  4 16:30:53 2020
+Created on Sun Mar  8 13:38:33 2020
 
-@author: Mammad Abbasli
+@author: mamed
 """
-
-###################### LIBRARIES ########################################
-from selenium import webdriver
-import time
-from webdriver_manager.firefox import GeckoDriverManager
+###############LIBRARIES################
 import pandas as pd
-########################## CONNECTION ###################################
-driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
-driver.get("https://www.cars.com/for-sale/searchresults.action/?dealerType=localOnly&page=1&perPage=20&searchSource=GN_BREADCRUMB&sort=relevance&zc=90006")
-
-time.sleep(3)
-################################ SCROLL FOR FILTER #######################
-driver.execute_script("window.scrollTo(0, 800)")
-time.sleep(2)
-
-#click SearchButton for filter models BMW#####################
-clicke_bmw=driver.find_element_by_xpath("//*[@id='mkId']/ul/li[10]/label")
-clicke_bmw.click()
-time.sleep(2)
-#scroll#
-time.sleep(2)
-driver.execute_script("window.scrollTo(0, 600)")
+import requests
+from bs4 import BeautifulSoup
 ######################################   CAR INFO   #####################
 Model=[]
 Year=[]  
@@ -35,135 +17,100 @@ Int_Color=[]
 Transmission=[]
 Drivetrain=[]
 Numbers=[]
-################### MODEL , YEAR AND PRICE ##############################
-########################## BMW ##########################################
-object_car=driver.find_elements_by_class_name("listing-row__title")
-info=driver.find_elements_by_class_name("listing-row__meta")
-numbers=driver.find_elements_by_class_name("dealer-name")
-prices=driver.find_elements_by_class_name("listing-row__price")
-match=False
+################### MODEL , YEAR....... ##############################
+###############function helps to clear data###########
 
-lenOfPage = driver.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
+def clean(parameter):
+    parameter=parameter.replace('Ext. Color:','')
+    parameter=parameter.replace('Int. Color:','')
+    parameter=parameter.replace('Transmission:','')
+    parameter=parameter.replace('Drivetrain:','')
+    parameter=parameter.strip()
+    return parameter
+###########################getting ford information#######################
+ford=0    
+for i in range(1,3):
+    ########################## CONNECTION ###################################
+    url=("https://www.cars.com/for-sale/searchresults.action/?dealerType=localOnly&mkId=20015&page="+str(i)+"&perPage=20&searchSource=GN_REFINEMENT&sort=relevance&zc=90006")
+    param={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"}
+    response=requests.get(url,param)
+    soup=BeautifulSoup(response.content,"html.parser")
+        
+    for i in range(0,20):
+        Title=soup.find_all('div',attrs={"class":"shop-srp-listings__inner"})[i].find("div",{"class":"listing-row__details"}).find("h2",{"class":"listing-row__title"}).text.strip()
+        model=Title[5:9]
+        year=Title[0:4]
+        Model.append(model)
+        Year.append(year)
+        if(model=="Ford"):
+            ford=ford+1
+            ####
+            info=soup.find_all('div',attrs={"class":"shop-srp-listings__inner"})[i].find("div",{"class":"listing-row__details"}).find("ul",{"class":"listing-row__meta"})
+            extcolor=info.find_all("li")[0].text.strip()
+            extcolor=clean(extcolor)
+            inttcolor=info.find_all("li")[1].text.strip()
+            inttcolor=clean(inttcolor)
+            trs=info.find_all("li")[2].text.strip()
+            trs=clean(trs)
+            drr=info.find_all("li")[3].text.strip()
+            drr=clean(drr)
+            Ext_Color.append(extcolor)
+            Int_Color.append(inttcolor)
+            Transmission.append(trs)
+            Drivetrain.append(drr)
+              ###########################
+            price=soup.find_all('div',attrs={"class":"shop-srp-listings__inner"})[i].find("div",{"class":"listing-row__details"}).find("div",{"class":"payment-section"})
+            payment=price.find("span").text.strip()
+            Prices.append(payment)
+              ########################
+            dealer=soup.find('div',attrs={"class":"shop-srp-listings__inner"}).find("div",{"class":"listing-row__details"}).find("div",{"class":"dealer-name"}).find('div',{"class":"listing-row__phone"})
+            number=dealer.find_all("span")[3].text
+            Numbers.append(number)
+
+print(ford)
+###########################getting bmw information######################
 bmw=0
-try:
-  while(match==False):
-      time.sleep(1) 
-      if(bmw<=40):
-          for obj in object_car:
-               obj=str(obj.text)
-               Model.append(obj[5:9])
-               Year.append(obj[:4])
-               bmw=Model.count('BMW ')
-                 
-          for inf in info:
-               inf=str(inf.text) 
-               inf=inf.replace('Ext. Color:','')
-               inf=inf.replace('Int. Color:','')
-               inf=inf.replace('Transmission:','')
-               inf=inf.replace('Drivetrain:','')
-               inf=inf.strip()
-               inf=inf.replace(" ",",")
-               inf=inf.replace("\n","")
-               inf=inf.split(",")
-               Ext_Color.append(inf[0])
-               Int_Color.append(inf[1])
-               Transmission.append(inf[2])
-               Drivetrain.append(inf[3])
-                       
-          for price in prices:
-               price=str(price.text)
-               price=price.replace("MSRP ","")
-               Prices.append(price)
-                 
-          for num in numbers:
-               num=str(num.text)
-               num=num[-15:]
-               num=num.strip()
-               Numbers.append(num)
-          
-          lastCount = lenOfPage
-          lenOfPage = driver.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
-          if lastCount == lenOfPage:
-               next_btn=driver.find_element_by_xpath("/html/body/div[1]/div[4]/cars-filters/div[1]/cars-pagination/div[1]/a[2]")
-               next_btn.click()
-          
-      else:
-          match=True   
-except:
-     print("hata") 
-print(bmw)
-     
-################## MODEL , YEAR AND PRICE ##############################
-######################### Ford##########################################
-driver.get("https://www.cars.com/for-sale/searchresults.action/?dealerType=localOnly&page=1&perPage=20&searchSource=GN_BREADCRUMB&sort=relevance&zc=90006")
-time.sleep(2)
-driver.execute_script("window.scrollTo(0, 800)")
-time.sleep(2)
-#click SearchButton for filter models BMW#####################
-clicke_ford=driver.find_element_by_xpath("//*[@id='mkId']/ul/li[31]/label")
-clicke_ford.click()
-time.sleep(2)
-#scroll#
-time.sleep(2)
-driver.execute_script("window.scrollTo(0, 600)")
-time.sleep(1)
+for i in range(1,3):
+     ########################## CONNECTION ###################################
+    url=("https://www.cars.com/for-sale/searchresults.action/?dealerType=localOnly&mkId=20005&page="+str(i)+"&perPage=20&searchSource=GN_REFINEMENT&sort=relevance&zc=90006")
+    param={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"}
+    response=requests.get(url,param)
+    soup=BeautifulSoup(response.content,"html.parser")
+        
+    for i in range(0,20):
+        Title=soup.find_all('div',attrs={"class":"shop-srp-listings__inner"})[i].find("div",{"class":"listing-row__details"}).find("h2",{"class":"listing-row__title"}).text.strip()
+        model=Title[5:9]
+        year=Title[0:4]
+        Model.append(model)
+        Year.append(year)
+        if(model=="BMW "):
+            bmw+=1
+            ####
+            info=soup.find_all('div',attrs={"class":"shop-srp-listings__inner"})[i].find("div",{"class":"listing-row__details"}).find("ul",{"class":"listing-row__meta"})
+            extcolor=info.find_all("li")[0].text.strip()
+            extcolor=clean(extcolor)
+            inttcolor=info.find_all("li")[1].text.strip()
+            inttcolor=clean(inttcolor)
+            trs=info.find_all("li")[2].text.strip()
+            trs=clean(trs)
+            drr=info.find_all("li")[3].text.strip()
+            drr=clean(drr)
+            Ext_Color.append(extcolor)
+            Int_Color.append(inttcolor)
+            Transmission.append(trs)
+            Drivetrain.append(drr)
+              ###########################
+            price=soup.find_all('div',attrs={"class":"shop-srp-listings__inner"})[i].find("div",{"class":"listing-row__details"}).find("div",{"class":"payment-section"})
+            payment=price.find("span").text.strip()
+            Prices.append(payment)
+              ########################
+            dealer=soup.find('div',attrs={"class":"shop-srp-listings__inner"}).find("div",{"class":"listing-row__details"}).find("div",{"class":"dealer-name"}).find('div',{"class":"listing-row__phone"})
+            number=dealer.find_all("span")[3].text
+            Numbers.append(number)
 
-object_car=driver.find_elements_by_class_name("listing-row__title")
-info=driver.find_elements_by_class_name("listing-row__meta")
-numbers=driver.find_elements_by_class_name("dealer-name")
-prices=driver.find_elements_by_class_name("listing-row__price")
-match=False
-lenOfPage = driver.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
-ford=0
-try:
-  while(match==False):
-      time.sleep(2) 
-      if(ford<=40): 
-          for obj in object_car:
-               obj=str(obj.text)
-               Model.append(obj[5:9])
-               Year.append(obj[:4])
-               ford=Model.count('Ford')
-                
-          for inf in info:
-               inf=str(inf.text) 
-               inf=inf.replace('Ext. Color:','')
-               inf=inf.replace('Int. Color:','')
-               inf=inf.replace('Transmission:','')
-               inf=inf.replace('Drivetrain:','')
-               inf=inf.strip()
-               inf=inf.replace(" ",",")
-               inf=inf.replace("\n","")
-               inf=inf.split(",")
-               Ext_Color.append(inf[0])
-               Int_Color.append(inf[1])
-               Transmission.append(inf[2])
-               Drivetrain.append(inf[3])
-                   
-          for price in prices:
-               price=str(price.text)
-               price=price.replace("MSRP ","")
-               Prices.append(price)
-                     
-          for num in numbers:
-               num=str(num.text)
-               num=num[-15:]
-               num=num.strip()
-               Numbers.append(num)
-       
-          lastCount = lenOfPage
-          lenOfPage = driver.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
-          if lastCount == lenOfPage:
-               next_btn=driver.find_element_by_xpath("/html/body/div[1]/div[4]/cars-filters/div[1]/cars-pagination/div[1]/a[2]")
-               next_btn.click()
-              
-      else:
-          match=True   
-except:
-     print("hata") 
-time.sleep(2)
-driver.close()
-##################### COLLECT ALL DATE IN DATAFRAME ######################
+print(bmw)
+
+###################### COLLECT ALL DATE IN DATAFRAME ######################
 Model=pd.DataFrame(Model,columns=["models"])
 Year=pd.DataFrame(Year,columns=['year'])
 Prices=pd.DataFrame(Prices,columns=['price'])
