@@ -23,7 +23,7 @@ mysql = MySQL(app)
 def liste(extColor,model,year):
     print(extColor,model,year)
     cursor = mysql.connection.cursor()
-    sorgu = ("Select * From car_info wehere ext_color='{0}'and models='{1}'and year='{2}'".format(extColor,model,year))
+    sorgu = ("Select * From car_info where ext_color='{0}'and models='{1}'and year='{2}'".format(extColor,model,year))
     cursor.execute(sorgu)
     data=cursor.fetchall()
     cursor.close()
