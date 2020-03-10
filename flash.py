@@ -25,6 +25,7 @@ def liste(extColor,model,year):
     cursor = mysql.connection.cursor()
     sorgu = ("Select * From car_info where ext_color='{0}'and models='{1}'and year='{2}'".format(extColor,model,year))
     cursor.execute(sorgu)
+    mysql.connection.commit()
     data=cursor.fetchall()
     cursor.close()
     return jsonify(data)
